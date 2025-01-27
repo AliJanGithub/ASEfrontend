@@ -41,7 +41,7 @@ const useStudent = () => {
           method: "GET",
           headers: {
            
-            Authorization: `Bearer ${token}`, // Add the token here
+            "Authorization": `Bearer ${token}`, // Add the token here
           }
         
         });
@@ -57,11 +57,11 @@ const useStudent = () => {
         if (data) {
           alert("Student list available successfully!");
           console.log(data);
-          // Reset the form
+         
         }
       } catch (error) {
         console.error(" error:", error);
-        alert("Something went wrong. Please try again.",error);
+        alert("Something went wrong. Please try again.");
       }
   }
   const attendanceFunc = async (token, status,studentId) => {
@@ -71,7 +71,7 @@ const useStudent = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify( {status,studentId} ),
       });
