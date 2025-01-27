@@ -37,7 +37,7 @@ const useStudent = () => {
 
   const getStudents=async(token)=>{
     try {
-        const response = await fetch(`${URL}`, {
+        const response = await fetch(`${URL}/get`, {
           method: "GET",
           headers: {
            
