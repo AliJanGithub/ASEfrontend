@@ -1,1 +1,1 @@
-export const URL='http://localhost:3000'
+export const URL='https://ase-1b1zy1jc7-ali-jameels-projects.vercel.app'
