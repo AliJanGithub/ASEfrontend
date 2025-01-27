@@ -9,7 +9,7 @@ const useStudent = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Add the token here
+          "Authorization": `Bearer ${token}`, // Add the token here
         },
         body: JSON.stringify(initialState),
       });
