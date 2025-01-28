@@ -6,6 +6,7 @@ const PrivateRoute = ({ children }) => {
   const isAuthenticated = useAuth();
 
   if (!isAuthenticated) {
+    window.alert("You are not authorized to access this page. Redirecting to the home page.");
     return <Navigate to="/" replace />;
   }
 

@@ -1,17 +1,25 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useTeacherHook from "../custom/useTeacherHook";
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const navigate=useNavigate()
+  const navigate = useNavigate();
+  const { less } = useTeacherHook();
+
+  // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-const logout=()=>{
-  localStorage.removeItem('token');
-  navigate('/')
 
-}
+  // Logout logic
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  const isLoggedIn = Boolean(localStorage.getItem("token")); // Dynamically check login status
+
   return (
     <nav className="bg-blue-600 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +27,7 @@ const logout=()=>{
           <div className="flex-shrink-0 text-xl font-bold">School Portal</div>
           <div className="hidden md:flex space-x-4">
             <Link to="/" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
-             Home
+              Home
             </Link>
             <Link to="/attendance" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Take Attendance
@@ -31,9 +39,16 @@ const logout=()=>{
               Register as Teacher
             </Link>
             <Link to="/get" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
-            Get Your Attendance
+              Get Your Attendance
             </Link>
-            <button className="hover:bg-blue-500 px-3 bg-amber-900 py-2 rounded-md text-sm font-medium" onClick={logout}>Logout</button>
+            {isLoggedIn && (
+              <button
+                className="hover:bg-blue-500 px-3 bg-amber-900 py-2 rounded-md text-sm font-medium"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            )}
           </div>
           <div className="-mr-2 flex md:hidden">
             <button
@@ -65,7 +80,7 @@ const logout=()=>{
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
-             Home
+              Home
             </Link>
             <Link to="/attendance" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
               Take Attendance
@@ -77,9 +92,16 @@ const logout=()=>{
               Register as Teacher
             </Link>
             <Link to="/get" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
-              Get You Attendance
+              Get Your Attendance
             </Link>
-            <button className="block bg-amber-900 px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500" onClick={logout}>Logout</button>
+            {isLoggedIn && (
+              <button
+                className="block bg-amber-900 px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -22,7 +22,7 @@ const useStudent = () => {
 
       const data = await response.json();
       if (data) {
-        alert("Student registered successfully!");
+        alert(`Student ${data.name} registered successfully!`);
         console.log(data);
         // Reset the form
       }
@@ -55,7 +55,6 @@ const useStudent = () => {
         const data = await response.json();
         setUsers(data.student)
         if (data) {
-          alert("Student list available successfully!");
           console.log(data);
          
         }

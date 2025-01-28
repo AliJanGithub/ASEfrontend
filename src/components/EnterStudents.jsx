@@ -20,7 +20,7 @@ export default function EnterStudents() {
         const token=localStorage.getItem('token');
         await addStudent(teacher,token)
         console.log("Student Details:", teacher);
-     navigate("/attendance")
+    //  navigate("/attendance")
       }
     };
   

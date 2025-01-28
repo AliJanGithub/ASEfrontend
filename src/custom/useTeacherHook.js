@@ -1,8 +1,9 @@
 
+import { useState } from "react";
 import { URL } from "../constant";
 
 const useTeacherHook=()=>{
-
+const [less,setLess]=useState(false)
     const submitForm = async (initialState) => {
         
 
@@ -27,6 +28,7 @@ const useTeacherHook=()=>{
             localStorage.setItem("token", data.token);
             alert("Teacher registered successfully!");
             console.log(data.token);
+            setLess(true)
              // Reset the form
           }
         } catch (error) {
@@ -37,6 +39,6 @@ const useTeacherHook=()=>{
 
 
 
-      return {submitForm}
+      return {submitForm,less}
 }
 export default useTeacherHook

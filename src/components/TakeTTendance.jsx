@@ -91,67 +91,77 @@ export default function TakeAttendance() {
         {/* Attendance Table */}
         {isDateSet && (
           <div className="space-y-4">
-            {users.map((student) => (
-              <div
-                key={student._id}
-                className="flex items-center justify-between p-4 border-b border-gray-200"
-              >
-                <div>
-                  <p className="font-medium text-gray-800">{student.name}</p>
-                  <p className="text-sm text-gray-500">
-                    Roll No: {student.rollNumber}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Teacher Id: {student.teacherId}
-                  </p>
+            {users.length > 0 ? (
+              users.map((student) => (
+                <div
+                  key={student._id}
+                  className="flex items-center justify-between p-4 border-b border-gray-200"
+                >
+                  <div>
+                    <p className="font-medium text-gray-800">{student.name}</p>
+                    <p className="text-sm text-gray-500">
+                      Roll No: {student.rollNumber}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Teacher Id: {student.teacherId}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {/* Present Button */}
+                    <button
+                      className={`${
+                        attendanceStatus[student._id]?.marked
+                          ? "bg-gray-300 cursor-not-allowed"
+                          : "bg-green-500 hover:bg-green-600"
+                      } text-white px-3 py-2 rounded-lg shadow`}
+                      onClick={() => handleAttendance(student._id, "Present")}
+                      disabled={attendanceStatus[student._id]?.marked}
+                    >
+                      Present
+                    </button>
+                    {/* Absent Button */}
+                    <button
+                      className={`${
+                        attendanceStatus[student._id]?.marked
+                          ? "bg-gray-300 cursor-not-allowed"
+                          : "bg-red-500 hover:bg-red-600"
+                      } text-white px-3 py-2 rounded-lg shadow`}
+                      onClick={() => handleAttendance(student._id, "Absent")}
+                      disabled={attendanceStatus[student._id]?.marked}
+                    >
+                      Absent
+                    </button>
+                    {/* Checkbox */}
+                    <input
+  type="checkbox"
+  className="hidden"
+  checked={attendanceStatus[student._id]?.marked || false}
+  readOnly // Checkbox state cannot be changed manually
+/>
+
+                  </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  {/* Present Button */}
-                  <button
-                    className={`${
-                      attendanceStatus[student._id]?.marked
-                        ? "bg-gray-300 cursor-not-allowed"
-                        : "bg-green-500 hover:bg-green-600"
-                    } text-white px-3 py-2 rounded-lg shadow`}
-                    onClick={() => handleAttendance(student._id, "Present")}
-                    disabled={attendanceStatus[student._id]?.marked}
-                  >
-                    Present
-                  </button>
-                  {/* Absent Button */}
-                  <button
-                    className={`${
-                      attendanceStatus[student._id]?.marked
-                        ? "bg-gray-300 cursor-not-allowed"
-                        : "bg-red-500 hover:bg-red-600"
-                    } text-white px-3 py-2 rounded-lg shadow`}
-                    onClick={() => handleAttendance(student._id, "Absent")}
-                    disabled={attendanceStatus[student._id]?.marked}
-                  >
-                    Absent
-                  </button>
-                  {/* Checkbox */}
-                  <input
-                    type="checkbox"
-                    className="cursor-not-allowed"
-                    checked={attendanceStatus[student._id]?.marked || false}
-                    readOnly // Checkbox state cannot be changed manually
-                  />
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center text-gray-600 font-medium">
+                No students are registered.
+              </p>
+            )}
           </div>
         )}
 
         {/* Submit Button */}
         <div className="text-center mt-6">
-          <button
+          {/* {
+            users.length > 0 ?<button
             onClick={handleSubmit}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={!isDateSet} // Disable until the date is set
           >
-            Submit Attendance
-          </button>
+           Go To Home
+          </button> : null
+          } */}
+          
         </div>
       </div>
     </div>

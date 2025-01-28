@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { URL } from "../constant";
+import * as XLSX from "xlsx";
 
 export default function GetStudents() {
   const [students, setStudents] = useState([]);
@@ -49,6 +50,21 @@ export default function GetStudents() {
     }, {});
   };
 
+  const downloadExcel = () => {
+    const formattedData = students.map((record) => ({
+      "Student Name": record.studentId.name,
+      "Roll No": record.studentId.rollNumber,
+      "Teacher ID": record.teacherId,
+      "Date": new Date(record.date).toLocaleString(),
+      "Status": record.status,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+    XLSX.writeFile(workbook, "Students_List.xlsx");
+  };
+
   const groupedStudents = groupByDate(students);
 
   return (
@@ -57,12 +73,18 @@ export default function GetStudents() {
         <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">
           Attendance Records
         </h1>
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center gap-4 mb-6">
           <button
             onClick={sortStudents}
             className="px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700"
           >
             Sort by Date ({sortedAsc ? "Ascending" : "Descending"})
+          </button>
+          <button
+            onClick={downloadExcel}
+            className="px-4 py-2 bg-green-600 text-white font-semibold rounded shadow hover:bg-green-700"
+          >
+            Download Excel
           </button>
         </div>
         {students.length > 0 ? (
