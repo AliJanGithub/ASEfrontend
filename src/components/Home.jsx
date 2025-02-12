@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const [register,setregister]=useState(false)
  const navigate= useNavigate()
+ useEffect(() => {
+
+  const token =localStorage.getItem("token");
+  if(token){
+    setregister(true)
+        }
+
+ }, [])
+ 
   const handleLearn=()=>{
-   navigate("/reg")
+   
+
+   
+  
+  navigate("/reg")
   }
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 flex items-center justify-center text-white">
@@ -21,9 +35,12 @@ export default function Home() {
 
         {/* Call to Action */}
         <div className="flex justify-center space-x-4">
-          <button onClick={handleLearn} className="px-6 py-3 bg-yellow-400 text-indigo-900 font-semibold rounded-lg shadow-md hover:bg-yellow-500 hover:scale-105 transform transition">
-            Get Started
-          </button>
+          {
+           !register &&  <button onClick={handleLearn} className="px-6 py-3 bg-yellow-400 text-indigo-900 font-semibold rounded-lg shadow-md hover:bg-yellow-500 hover:scale-105 transform transition">
+           Get Started
+         </button>
+          }
+         
           {/* <button className="px-6 py-3 bg-transparent border border-yellow-400 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-500 hover:text-indigo-900 hover:scale-105 transform transition">
             Learn More
           </button> */}
