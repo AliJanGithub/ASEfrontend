@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useTeacherHook from "../custom/useTeacherHook";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { less } = useTeacherHook();
+
+  const isLoggedIn = Boolean(localStorage.getItem("token")); // Check dynamically
 
   // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
@@ -17,8 +17,6 @@ export default function Navbar() {
     localStorage.removeItem("token");
     navigate("/");
   };
-
-  const isLoggedIn = Boolean(localStorage.getItem("token")); // Dynamically check login status
 
   return (
     <nav className="bg-blue-600 text-white">
@@ -35,9 +33,11 @@ export default function Navbar() {
             <Link to="/student" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Enter Students
             </Link>
-            <Link to="/reg" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
-              Register as Teacher
-            </Link>
+            {!isLoggedIn && (
+              <Link to="/reg" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+                Register as Teacher
+              </Link>
+            )}
             <Link to="/get" className="hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Get Your Attendance
             </Link>
@@ -88,9 +88,11 @@ export default function Navbar() {
             <Link to="/student" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
               Enter Students
             </Link>
-            <Link to="/reg" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
-              Register as Teacher
-            </Link>
+            {!isLoggedIn && (
+              <Link to="/reg" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
+                Register as Teacher
+              </Link>
+            )}
             <Link to="/get" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-500">
               Get Your Attendance
             </Link>
